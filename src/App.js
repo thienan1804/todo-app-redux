@@ -2,6 +2,7 @@ import { Typography, Divider } from 'antd';
 import './App.css';
 import TodoList from './components/TodoList';
 import Filters from './components/Filters';
+import LoginPage from './components/Login';
 
 const { Title } = Typography;
 
@@ -20,10 +21,11 @@ function App() {
         height: '90vh',
       }}
     >
-      <Title style={{ textAlign: 'center' }}>TODO APP with REDUX</Title>
-      <Filters />
+      <Title style={{ textAlign: 'center' }}>LOGIN PAGE</Title>
+      <LoginPage />
+      {/* <Filters />
       <Divider />
-      <TodoList />
+      <TodoList /> */}
     </div>
   );
 }
