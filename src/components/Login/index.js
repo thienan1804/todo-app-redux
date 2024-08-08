@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearError } from "./userSlice";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
     const [username, setUsername] = useState("");
@@ -8,6 +9,8 @@ const LoginPage = () => {
 
     const userState = useSelector((state) => state.user) || {};
     const { loading, error } = userState;
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -26,13 +29,14 @@ const LoginPage = () => {
             if (result.meta.requestStatus === 'fulfilled') {
                 setUsername("");
                 setPassword("");
-                alert("Đăng nhập thành công");
+                localStorage.setItem("accessToken", result.payload.accessToken);
+                navigate("/")
             }
         });
     };
 
     return (
-        <div>
+        <div className="container">
             <form onSubmit={handleLoginEvent} className="form-group custom-form">
                 <label>Username</label>
                 <input required type="text"
@@ -45,9 +49,8 @@ const LoginPage = () => {
                 <button className="btn btn-success btn-md" type="submit">
                     {loading ? "Loading..." : "Login"}
                 </button>
-                <br />
                 {error && (
-                    <div className="alert alert-danger" role="alert">
+                    <div className="alert alert-danger mt-2" role="alert">
                         {typeof error === 'string' ? error : error.message}
                     </div>
                 )}
