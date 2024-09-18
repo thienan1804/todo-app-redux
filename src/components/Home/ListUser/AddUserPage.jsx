@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser, clearAddError } from "./ListUserSlice";
+import { useDispatch } from "react-redux";
+import {
+  addMembersType,
+  clearAddError,
+  fetchListMembersType,
+  updateMembersType,
+  clearUpdateError,
+} from "./ListUserSlice";
 
-const AddUserPage = () => {
-  const [userValue, setUserValue] = useState({
-    username: "",
-    password: "",
-    fullName: "",
-    email: "",
+const AddUserPage = ({ selectedUser }) => {
+  const [membersType, setMemberTypes] = useState({
+    name: "",
+    description: "",
   });
-
-  const state = useSelector((state) => state.listUser);
 
   const dispatch = useDispatch();
 
   const handleOnchangeUserValue = (e) => {
-    setUserValue({ ...userValue, [e.target.name]: e.target.value });
+    setMemberTypes({ ...membersType, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
@@ -23,68 +25,78 @@ const AddUserPage = () => {
     dispatch(clearAddError());
   }, [dispatch]);
 
+  useEffect(() => {
+    // Clear error khi component mount hoặc khi bắt đầu sửa lại thông tin
+    dispatch(clearUpdateError());
+  }, [dispatch]);
+
+  // Cập nhật giá trị của membersType khi selectedUser thay đổi
+  useEffect(() => {
+    if (selectedUser) {
+      setMemberTypes({
+        name: selectedUser.name || "",
+        description: selectedUser.description || "",
+      });
+    }
+  }, [selectedUser]);
+
   const handleSubmitUser = (e) => {
     e.preventDefault();
-    dispatch(addUser(userValue)).then((result) => {
-      if (result.meta.requestStatus === "fulfilled") {
-        setUserValue({
-          username: "",
-          password: "",
-          fullName: "",
-          email: "",
-        });
-        alert("Them thanh cong");
-      } else if (result.meta.requestStatus === "rejected") {
-        return <h1>{state.add.error}</h1>;
-      }
-    });
+    if (selectedUser) {
+      // Nếu có selectedUser, gọi API cập nhật
+      dispatch(
+        updateMembersType({
+          membersTypeid: selectedUser.id,
+          membersTypeValue: membersType,
+        })
+      ).then((result) => {
+        if (result.meta.requestStatus === "fulfilled") {
+          alert("Sửa thành công");
+          dispatch(fetchListMembersType(1));
+        }
+      });
+    } else {
+      // Thêm mới thành viên
+      dispatch(addMembersType(membersType)).then((result) => {
+        if (result.meta.requestStatus === "fulfilled") {
+          setMemberTypes({
+            name: "",
+            description: "",
+          });
+          alert("Thêm thành công");
+          dispatch(fetchListMembersType(1));
+        }
+      });
+    }
   };
 
   return (
     <div className="container">
       <form onSubmit={handleSubmitUser} className="form-group custom-form">
-        <label>Username</label>
+        <label>Name</label>
         <input
-          name="username"
+          name="name"
           required
-          value={userValue.username}
+          value={membersType.name}
           onChange={handleOnchangeUserValue}
           type="text"
           className="form-control"
         ></input>
         <br />
-        <label>Password</label>
+        <label>Description</label>
         <input
-          name="password"
+          name="description"
           required
-          value={userValue.password}
-          onChange={handleOnchangeUserValue}
-          type="password"
-          className="form-control"
-        ></input>
-        <br />
-        <label>FullName</label>
-        <input
-          name="fullName"
-          required
-          value={userValue.fullName}
+          value={membersType.description}
           onChange={handleOnchangeUserValue}
           type="text"
           className="form-control"
         ></input>
         <br />
-        <label>Email</label>
-        <input
-          name="email"
-          required
-          value={userValue.email}
-          onChange={handleOnchangeUserValue}
-          type="email"
-          className="form-control"
-        ></input>
+
         <br />
         <button className="btn btn-success btn-md" type="submit">
-          {state.add.loading ? "Loading..." : "Send"}
+          {!selectedUser ? "Thêm" : "Sửa"}
         </button>
       </form>
     </div>
