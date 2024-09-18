@@ -93,7 +93,10 @@ const ListUserPage = () => {
         </Table>
       </div>
       <Divider />
-      <AddUserPage selectedUser={selectedUser} />
+      <AddUserPage
+        selectedUser={selectedUser}
+        setSelectedUser={setSelectedUser}
+      />
     </div>
   );
 };

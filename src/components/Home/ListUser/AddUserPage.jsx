@@ -7,8 +7,9 @@ import {
   updateMembersType,
   clearUpdateError,
 } from "./ListUserSlice";
+import Button from "react-bootstrap/Button";
 
-const AddUserPage = ({ selectedUser }) => {
+const AddUserPage = ({ selectedUser, setSelectedUser }) => {
   const [membersType, setMemberTypes] = useState({
     name: "",
     description: "",
@@ -72,6 +73,16 @@ const AddUserPage = ({ selectedUser }) => {
 
   return (
     <div className="container">
+      {selectedUser && (
+        <Button
+          variant="success"
+          onClick={() => {
+            setSelectedUser(null);
+          }}
+        >
+          Thêm
+        </Button>
+      )}
       <form onSubmit={handleSubmitUser} className="form-group custom-form">
         <label>Name</label>
         <input
