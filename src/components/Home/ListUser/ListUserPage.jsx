@@ -70,7 +70,7 @@ const ListUserPage = () => {
             state.fetch.listMembersType.map((type, i) => (
               <tbody key={i}>
                 <tr>
-                  <td>{type.maCD}</td>
+                  <td>{type.maChuDe}</td>
                   <td>{type.tenChuDe}</td>
                   <td>
                     <Button onClick={() => handleEdit(type)} variant="warning">
@@ -78,7 +78,7 @@ const ListUserPage = () => {
                     </Button>{" "}
                     <Button
                       variant="danger"
-                      onClick={() => handleDelete(type.maCD)}
+                      onClick={() => handleDelete(type.maChuDe)}
                     >
                       Xóa
                     </Button>

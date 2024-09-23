@@ -46,7 +46,7 @@ const AddUserPage = ({ selectedUser, setSelectedUser }) => {
       // Nếu có selectedUser, gọi API cập nhật
       dispatch(
         updateMembersType({
-          membersTypeid: selectedUser.maCD,
+          membersTypeid: selectedUser.maChuDe,
           membersTypeValue: membersType,
         })
       ).then((result) => {
