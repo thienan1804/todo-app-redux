@@ -7,9 +7,9 @@ export const fetchListMembersType = createAsyncThunk(
         try {
             const config = {
                 method: "GET",
-                url: `${process.env.REACT_APP_API_BASE_URL}member-ship-type/gets?order=ASC&page=${page}&take=10`,
+                url: `${process.env.REACT_APP_API_BASE_URL}ChuDe/chudelist`,
                 headers: {
-                    Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
+                    Authorization: `Bearer ${window.localStorage.getItem("token")}`,
                 },
             };
             const response = await axios(config);
@@ -26,10 +26,10 @@ export const addMembersType = createAsyncThunk(
         try {
             const config = {
                 method: "post",
-                url: `${process.env.REACT_APP_API_BASE_URL}member-ship-type/create`,
+                url: `${process.env.REACT_APP_API_BASE_URL}ChuDe/create`,
                 headers: {
                     accept: "*/*",
-                    Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
+                    Authorization: `Bearer ${window.localStorage.getItem("token")}`,
                     "Content-Type": "application/json",
                 },
                 data: userValue,
@@ -48,10 +48,10 @@ export const deleteMembersType = createAsyncThunk(
         try {
             const config = {
                 method: "delete",
-                url: `${process.env.REACT_APP_API_BASE_URL}member-ship-type/delete?id=${memberId}`,
+                url: `${process.env.REACT_APP_API_BASE_URL}ChuDe/delete/${memberId}`,
                 headers: {
                     accept: "*/*",
-                    Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
+                    Authorization: `Bearer ${window.localStorage.getItem("token")}`,
                     "Content-Type": "application/json",
                 },
             };
@@ -69,10 +69,10 @@ export const updateMembersType = createAsyncThunk(
         try {
             const config = {
                 method: "put",
-                url: `${process.env.REACT_APP_API_BASE_URL}member-ship-type/update?id=${membersTypeid}`,
+                url: `${process.env.REACT_APP_API_BASE_URL}ChuDe/update/${membersTypeid}`,
                 headers: {
                     accept: "*/*",
-                    Authorization: `Bearer ${window.localStorage.getItem("accessToken")}`,
+                    Authorization: `Bearer ${window.localStorage.getItem("token")}`,
                     "Content-Type": "application/json",
                 },
                 data: membersTypeValue,

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 function useAuth() {
     const [user, setUser] = useState(undefined);
     const [errorMessage, setErrorMessage] = useState(undefined);
-    const token = window.localStorage.getItem("accessToken");
+    const token = window.localStorage.getItem("token");
 
     useEffect(() => {
         if (token == null) {
@@ -16,7 +16,7 @@ function useAuth() {
         if (token != null) {
             var config = {
                 method: "GET",
-                url: `${process.env.REACT_APP_API_BASE_URL}users?order=ASC&page=1&take=10`,
+                url: `${process.env.REACT_APP_API_BASE_URL}User/test`,
                 headers: { Authorization: `Bearer ${token}` },
             };
 

@@ -11,8 +11,7 @@ import Button from "react-bootstrap/Button";
 
 const AddUserPage = ({ selectedUser, setSelectedUser }) => {
   const [membersType, setMemberTypes] = useState({
-    name: "",
-    description: "",
+    tenChuDe: "",
   });
 
   const dispatch = useDispatch();
@@ -35,19 +34,19 @@ const AddUserPage = ({ selectedUser, setSelectedUser }) => {
   useEffect(() => {
     if (selectedUser) {
       setMemberTypes({
-        name: selectedUser.name || "",
-        description: selectedUser.description || "",
+        tenChuDe: selectedUser.tenChuDe || "",
       });
     }
   }, [selectedUser]);
 
   const handleSubmitUser = (e) => {
+    console.log(selectedUser);
     e.preventDefault();
     if (selectedUser) {
       // Nếu có selectedUser, gọi API cập nhật
       dispatch(
         updateMembersType({
-          membersTypeid: selectedUser.id,
+          membersTypeid: selectedUser.maCD,
           membersTypeValue: membersType,
         })
       ).then((result) => {
@@ -84,25 +83,17 @@ const AddUserPage = ({ selectedUser, setSelectedUser }) => {
         </Button>
       )}
       <form onSubmit={handleSubmitUser} className="form-group custom-form">
-        <label>Name</label>
+        <label>Ten chu de</label>
         <input
-          name="name"
+          name="tenChuDe"
           required
-          value={membersType.name}
+          value={membersType.tenChuDe}
           onChange={handleOnchangeUserValue}
           type="text"
           className="form-control"
         ></input>
         <br />
-        <label>Description</label>
-        <input
-          name="description"
-          required
-          value={membersType.description}
-          onChange={handleOnchangeUserValue}
-          type="text"
-          className="form-control"
-        ></input>
+
         <br />
 
         <br />

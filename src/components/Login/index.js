@@ -29,7 +29,7 @@ const LoginPage = () => {
             if (result.meta.requestStatus === 'fulfilled') {
                 setUsername("");
                 setPassword("");
-                localStorage.setItem("accessToken", result.payload.accessToken);
+                localStorage.setItem("token", result.payload.token);
                 navigate("/")
             }
         });

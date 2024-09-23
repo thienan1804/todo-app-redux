@@ -7,7 +7,7 @@ export const loginUser = createAsyncThunk(
         try {
             var config = {
                 method: "post",
-                url: `${process.env.REACT_APP_API_BASE_URL}auth/login`,
+                url: `${process.env.REACT_APP_API_BASE_URL}User/login`,
                 headers: { "Content-Type": "application/json" },
                 data: userCredential,
             };

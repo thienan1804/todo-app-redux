@@ -61,10 +61,8 @@ const ListUserPage = () => {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Description</th>
+              <th>Ma Chu De</th>
+              <th>Ten Chu De</th>
               <th>Feature</th>
             </tr>
           </thead>
@@ -72,17 +70,15 @@ const ListUserPage = () => {
             state.fetch.listMembersType.map((type, i) => (
               <tbody key={i}>
                 <tr>
-                  <td>{i + 1}</td>
-                  <td>{type.id}</td>
-                  <td>{type.name}</td>
-                  <td>{type.description}</td>
+                  <td>{type.maCD}</td>
+                  <td>{type.tenChuDe}</td>
                   <td>
                     <Button onClick={() => handleEdit(type)} variant="warning">
                       Sửa
                     </Button>{" "}
                     <Button
                       variant="danger"
-                      onClick={() => handleDelete(type.id)}
+                      onClick={() => handleDelete(type.maCD)}
                     >
                       Xóa
                     </Button>
